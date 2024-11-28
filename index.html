@@ -1,0 +1,218 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Le Calendrier de l'Avent 2024</title>
+    <link href="https://fonts.googleapis.com/css2?family=Dancing+Script&display=swap" rel="stylesheet">
+    <style>
+        body {
+            background-image: url('Background.webp');
+            background-size: cover;
+            background-position: center;
+            background-attachment: fixed;
+            color: #fff;
+            font-family: 'Dancing Script', cursive;
+            margin: 0;
+            padding: 0;
+            text-align: center;
+        }
+
+        h1 {
+            font-size: 2.5em;
+            margin: 20px 0;
+        }
+
+        p {
+            font-size: 1.2em;
+            margin-bottom: 20px;
+        }
+
+        .calendar {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            margin-top: 50px;
+        }
+
+        .row {
+            display: flex;
+            justify-content: center;
+            margin: 10px 0;
+        }
+
+        .day {
+            background-color: rgba(255, 228, 225, 0.8);
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            cursor: pointer;
+            transition: transform 0.3s, background-color 0.3s;
+        }
+
+        .day:hover {
+            transform: scale(1.1);
+            background-color: #ffdab9;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+        }
+
+        /* Overlay Styles */
+        #overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.9);
+            color: white;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            transform: translateY(100%);
+            transition: transform 0.5s ease-in-out;
+            z-index: 1000;
+        }
+
+        #overlay.show {
+            transform: translateY(0);
+        }
+
+        #overlay h2 {
+            font-size: 2.5em;
+            margin: 0 0 20px;
+        }
+
+        #overlay p {
+            font-size: 1.5em;
+            margin-bottom: 20px;
+        }
+
+        #overlay button {
+            padding: 12px 25px;
+            background-color: #ff6600;
+            color: white;
+            border: none;
+            border-radius: 10px;
+            font-size: 16px;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+        }
+
+        #overlay button:hover {
+            background-color: #e55b00;
+        }
+
+        @media (max-width: 768px) {
+            .calendar {
+                grid-template-columns: repeat(4, 1fr);
+                padding: 10px;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .calendar {
+                grid-template-columns: repeat(3, 1fr);
+                gap: 5px;
+            }
+
+            .day {
+                padding: 15px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <h1>🎄 Le Diamonds Bar vous présente le calendrier de l'Avent 2024 🎁</h1>
+    <p>Découvrez une surprise chaque jour !</p>
+
+    <div class="calendar">
+        <!-- Pyramide de 24 jours -->
+        <div class="row">
+            <div class="day" onclick="showContent(1)">1</div>
+        </div>
+        <div class="row">
+            <div class="day" onclick="showContent(2)">2</div>
+            <div class="day" onclick="showContent(3)">3</div>
+        </div>
+        <div class="row">
+            <div class="day" onclick="showContent(4)">4</div>
+            <div class="day" onclick="showContent(5)">5</div>
+            <div class="day" onclick="showContent(6)">6</div>
+        </div>
+        <div class="row">
+            <div class="day" onclick="showContent(7)">7</div>
+            <div class="day" onclick="showContent(8)">8</div>
+            <div class="day" onclick="showContent(9)">9</div>
+            <div class="day" onclick="showContent(10)">10</div>
+        </div>
+        <div class="row">
+            <div class="day" onclick="showContent(11)">11</div>
+            <div class="day" onclick="showContent(12)">12</div>
+            <div class="day" onclick="showContent(13)">13</div>
+            <div class="day" onclick="showContent(14)">14</div>
+            <div class="day" onclick="showContent(15)">15</div>
+        </div>
+        <div class="row">
+            <div class="day" onclick="showContent(16)">16</div>
+            <div class="day" onclick="showContent(17)">17</div>
+            <div class="day" onclick="showContent(18)">18</div>
+            <div class="day" onclick="showContent(19)">19</div>
+            <div class="day" onclick="showContent(20)">20</div>
+            <div class="day" onclick="showContent(21)">21</div>
+        </div>
+        <div class="row">
+            <div class="day" onclick="showContent(22)">22</div>
+            <div class="day" onclick="showContent(23)">23</div>
+            <div class="day" onclick="showContent(24)">24</div>
+        </div>
+    </div>
+
+    <div id="overlay">
+        <h2 id="cocktailTitle">Surprise</h2>
+        <p id="cocktailDescription"></p>
+        <button onclick="closeOverlay()">Fermer</button>
+    </div>
+
+    <script>
+        const surprises = [
+            "Shot spécial de Noël avec sirop de pain d'épices 🍹",
+            "Cocktail 'Flocon' à base de gin et de liqueur de coco ❄️",
+            "Cocktail épicé à base de rhum et cannelle 🥃",
+            "Shot aux fruits rouges et vodka 🍓",
+            "Bière aromatisée à la menthe 🍺",
+            "Cocktail tropical avec ananas et rhum 🍍",
+            "Cocktail pamplemousse et gin 🍊",
+            "Mojito de Noël avec cranberry 🍒",
+            "Gin tonic festif avec zestes d'orange 🍊",
+            "Cocktail chocolat chaud épicé ☕",
+            "Cocktail 'Neige fondue' à la crème de menthe 🍸",
+            "Shot de tequila à la lime 🍋",
+            "Mojito aux framboises 🍃",
+            "Cocktail à la cannelle et caramel 🍮",
+            "Cocktail pétillant au champagne 🍾",
+            "Daiquiri au fruit de la passion 🍑",
+            "Cocktail chaud à base de rhum 🍷",
+            "Cosmopolitan de Noël 🍸",
+            "Pina Colada festive 🥥",
+            "Shot à la liqueur de café ☕",
+            "Cocktail surprise au gin 🥂",
+            "Jus de pomme épicé 🍏",
+            "Gin tonic aux épices 🎄",
+            "Baileys et chocolat chaud 🍫",
+            "Cocktail au thé glacé 🍹"
+        ];
+
+        function showContent(day) {
+            document.getElementById("cocktailTitle").innerText = `Jour ${day}`;
+            document.getElementById("cocktailDescription").innerText = surprises[day - 1];
+            document.getElementById("overlay").classList.add("show");
+        }
+
+        function closeOverlay() {
+            document.getElementById("overlay").classList.remove("show");
+        }
+    </script>
+</body>
+</html>
